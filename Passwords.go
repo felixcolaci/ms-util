@@ -1,4 +1,4 @@
-package util
+package jnlx_util
 
 import "golang.org/x/crypto/bcrypt"
 
