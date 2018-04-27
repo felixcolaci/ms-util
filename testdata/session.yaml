@@ -1,5 +1,5 @@
 session:
-  auto-generate-keyset: true
+  auto-generate-keyset: false
   haskey: "/path/to/hashkey"
   blockkey: "/path/to/blockkey"
   cookie-path: "/path"

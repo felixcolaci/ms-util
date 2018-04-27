@@ -1,9 +1,9 @@
 postgres:
   port: 5432
   database: "testdb"
-  host: "localhost"
+  host: "example.com"
   username: "test"
   password: "password"
   reinit-schema: true
   use-ssl: true
-  mac-connection: 100
+  max-connections: 100

@@ -18,7 +18,7 @@ postgres:
   password: "password"
   reinit-schema: true
   use-ssl: true
-  mac-connection: 100
+  max-connections: 100
 
 session:
   auto-generate-keyset: true

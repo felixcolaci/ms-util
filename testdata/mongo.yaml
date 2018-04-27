@@ -1,5 +1,5 @@
 mongo:
-  host: "localhost"
+  host: "example.com"
   port: 27000
   database: "testdb"
   username: "test"
