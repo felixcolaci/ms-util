@@ -1,0 +1,4 @@
+base:
+  port: 8080
+  mgmt-port: 9000
+  base-path: "/path"

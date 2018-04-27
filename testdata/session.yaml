@@ -1,0 +1,6 @@
+session:
+  auto-generate-keyset: true
+  haskey: "/path/to/hashkey"
+  blockkey: "/path/to/blockkey"
+  cookie-path: "/path"
+  cookie-max-age: 300

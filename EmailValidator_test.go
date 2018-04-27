@@ -1,9 +1,9 @@
-package jnlx_util
+package main
 
 import "testing"
 
-var emails = []struct{
-	email string
+var emails = []struct {
+	email  string
 	result bool
 }{
 	{"felix.colaci@onlinehome.de", true},

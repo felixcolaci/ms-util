@@ -1,4 +1,4 @@
-package jnlx_util
+package main
 
 import "regexp"
 

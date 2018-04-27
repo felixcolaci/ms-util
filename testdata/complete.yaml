@@ -1,0 +1,31 @@
+base:
+  port: 8080
+  mgmt-port: 9000
+  base-path: "/path"
+
+mongo:
+  host: "localhost"
+  port: 27000
+  database: "testdb"
+  username: "test"
+  password: "password"
+
+postgres:
+  port: 5432
+  database: "testdb"
+  host: "localhost"
+  username: "test"
+  password: "password"
+  reinit-schema: true
+  use-ssl: true
+  mac-connection: 100
+
+session:
+  auto-generate-keyset: true
+  haskey: "/path/to/hashkey"
+  blockkey: "/path/to/blockkey"
+  cookie-path: "/path"
+  cookie-max-age: 300
+
+cache:
+  caching-enabled: true

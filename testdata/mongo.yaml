@@ -1,0 +1,6 @@
+mongo:
+  host: "localhost"
+  port: 27000
+  database: "testdb"
+  username: "test"
+  password: "password"

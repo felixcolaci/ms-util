@@ -1,11 +1,11 @@
-package jnlx_util
+package main
 
 import (
-	"golang.org/x/crypto/bcrypt"
 	"crypto/rand"
-	"io"
 	"encoding/base64"
 	"fmt"
+	"golang.org/x/crypto/bcrypt"
+	"io"
 )
 
 func HashPassword(password string) (string, string, error) {
@@ -15,12 +15,12 @@ func HashPassword(password string) (string, string, error) {
 		return "", "", err
 	}
 
-	bytes, err := bcrypt.GenerateFromPassword([]byte(salt + password), 8)
+	bytes, err := bcrypt.GenerateFromPassword([]byte(salt+password), 8)
 	return salt, string(bytes), err
 }
 
 func CheckPasswordHash(salt, password, hash string) bool {
-	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(salt + password))
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(salt+password))
 	return err == nil
 }
 
