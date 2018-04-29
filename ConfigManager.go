@@ -29,7 +29,11 @@ type OAuthConfiguration struct {
 	//The client secret of the application
 	ClientSecret string `yaml:"client-secret"`
 	//Space delimited string of scopes to be requested from authorization server
-	scope	string	`yaml:"scope"`
+	Scope	string	`yaml:"scope"`
+	//response type parameter for authorize request
+	ResponseType string `yaml:"response-type"`
+	//redirect uri for the authorize request
+	RedirectUri string `yaml:"redirect-uri"`
 }
 
 /*
