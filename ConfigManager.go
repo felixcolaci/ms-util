@@ -108,7 +108,7 @@ type Configuration struct {
 }
 
 type ConfigManager struct {
-	configuration *Configuration
+	Configuration *Configuration
 }
 
 func (c *Configuration) initSessionWithDefaults() {
@@ -143,7 +143,7 @@ func (c *Configuration) initCachingWithDefaults() {
 }
 
 func (c *ConfigManager) ReinitializeConfig(args ...string) {
-	c.configuration = NewManagedConfiguration(args...).configuration
+	c.Configuration = NewManagedConfiguration(args...).Configuration
 }
 
 func NewManagedConfiguration(args ...string) *ConfigManager {
@@ -164,9 +164,9 @@ func NewManagedConfiguration(args ...string) *ConfigManager {
 		config.initSessionWithDefaults()
 		config.initCachingWithDefaults()
 
-		conf.configuration = &config
+		conf.Configuration = &config
 	} else  {
-		err := yaml.Unmarshal(file, &conf.configuration)
+		err := yaml.Unmarshal(file, &conf.Configuration)
 		if err != nil {
 			panic(err)
 		}
