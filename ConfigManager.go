@@ -91,6 +91,8 @@ type SessionHandlingConf struct {
 	CookieMaxAge       int `yaml:"cookie-max-age"`
 	//Name of session
 	CookieName string `yaml:"cookie-name"`
+	//http only mode
+	HttpOnly	bool `yaml:"cookie-http-only"`
 }
 
 type CachingConf struct {
