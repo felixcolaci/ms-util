@@ -7,7 +7,7 @@
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries
-
+code_styles
 # Sensitive or high-churn files:
 .idea/**/dataSources/
 .idea/**/dataSources.ids
@@ -65,3 +65,6 @@ fabric.properties
 *.out
 
 .idea/inspectionProfiles/
+.idea/codeStyles/
+.idea/dbnavigator.xml
+.idea/vcs.xml

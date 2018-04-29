@@ -18,6 +18,20 @@ type BaseServiceConfiguration struct {
 	BasePath        string `yaml:"base-path"`
 }
 
+//OAuthConfiguration used to connect to an authorization server
+type OAuthConfiguration struct {
+	//Endpoint from the authorization server used to retrieve token
+	TokenEndpoint string `yaml:"token-endpoint"`
+	//Endpoint from the authorization server used for authorization redirect
+	AuthorizeEndpoint string `yaml:"authorize-endpoint"`
+	//The Client Id of the application
+	ClientId	string `yaml:"client-id"`
+	//The client secret of the application
+	ClientSecret string `yaml:"client-secret"`
+	//Space delimited string of scopes to be requested from authorization server
+	scope	string	`yaml:"scope"`
+}
+
 /*
 Configuration to connect to postgres
 */
@@ -86,6 +100,7 @@ type Configuration struct {
 	Cache CachingConf              `yaml:"cache,flow"`
 	Postgres PostgresConfig           `yaml:"postgres,flow"`
 	Mongo MongoConf                `yaml:"mongo,flow"`
+	Authentication OAuthConfiguration `yaml:"authentication,flow"`
 }
 
 type ConfigManager struct {
@@ -121,6 +136,10 @@ func (c *Configuration) initMongoWithDefaults() {
 
 func (c *Configuration) initCachingWithDefaults() {
 	c.Cache.EnableCaching = true
+}
+
+func (c *ConfigManager) ReinitializeConfig(args ...string) {
+	c.configuration = NewManagedConfiguration(args...).configuration
 }
 
 func NewManagedConfiguration(args ...string) *ConfigManager {
