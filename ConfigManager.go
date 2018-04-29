@@ -89,6 +89,8 @@ type SessionHandlingConf struct {
 	//Max age of generated cookies
 	//defaults to 3600 seconds
 	CookieMaxAge       int `yaml:"cookie-max-age"`
+	//Name of session
+	CookieName string `yaml:"cookie-name"`
 }
 
 type CachingConf struct {
