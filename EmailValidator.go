@@ -1,4 +1,4 @@
-package main
+package ms_util
 
 import "regexp"
 
