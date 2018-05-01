@@ -7,6 +7,8 @@ import (
 
 //Basic Service Configuration
 type BaseServiceConfiguration struct {
+	//Name of the application
+	Name string `yaml:"name"`
 	//port of the appliation
 	//defaults to 8080
 	Port int    `yaml:"port"`
@@ -56,6 +58,10 @@ type PostgresConfig struct {
 	UseSsl bool `yaml:"use-ssl"`
 	//Max size of the connection pool
 	MaxCon int `yaml:"max-connections"`
+	//Max idle connections
+	MaxIdleCon int `yaml:"max-idle-connections"`
+	//Connection lifetime in minutes
+	MaxConLifetime int `yaml:"max-con-lifetime"`
 }
 
 //Configuration for establishment of a mongo db connection
