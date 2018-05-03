@@ -1,6 +1,9 @@
-package ms_util
+package ms_util_test
 
-import "testing"
+import (
+	"testing"
+	"github.com/felixcolaci/ms-util"
+)
 
 var emails = []struct {
 	name string
@@ -18,7 +21,7 @@ func TestValidateEmail(t *testing.T) {
 
 	for _, tc := range emails {
 		t.Run(tc.name, func(t *testing.T) {
-			result := ValidateEmail(tc.email)
+			result := ms_util.ValidateEmail(tc.email)
 			if result != tc.result {
 				t.Errorf("Email validation failed for %v | Expected %v got %v", tc.email, tc.result, result)
 			}
