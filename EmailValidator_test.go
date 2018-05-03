@@ -3,25 +3,25 @@ package ms_util
 import "testing"
 
 var emails = []struct {
+	name string
 	email  string
 	result bool
 }{
-	{"felix.colaci@onlinehome.de", true},
-	{"carlos@example.co.uk", true},
-	{"carlos.com", false},
-	{"carlos", false},
-	{"carlos@example", true},
+	{"valid mail", "felix.colaci@onlinehome.de", true},
+	{"multiple dots in tld", "carlos@example.co.uk", true},
+	{"domain only", "carlos.com", false},
+	{"without @", "carlos", false},
+	{"valid mail without tld", "carlos@example", true},
 }
 
 func TestValidateEmail(t *testing.T) {
 
-	for _, tt := range emails {
-
-		result := ValidateEmail(tt.email)
-		if result != tt.result {
-			t.Errorf("Email validation failed for %v | Expected %v got %v", tt.email, tt.result, result)
-		}
-
+	for _, tc := range emails {
+		t.Run(tc.name, func(t *testing.T) {
+			result := ValidateEmail(tc.email)
+			if result != tc.result {
+				t.Errorf("Email validation failed for %v | Expected %v got %v", tc.email, tc.result, result)
+			}
+		})
 	}
-
 }

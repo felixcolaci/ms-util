@@ -11,13 +11,13 @@ type BaseServiceConfiguration struct {
 	Name string `yaml:"name"`
 	//port of the appliation
 	//defaults to 8080
-	Port int    `yaml:"port"`
+	Port int `yaml:"port"`
 	//mgmt port of the application
 	//defaults to nil
-	MgmtPort        int    `yaml:"mgmt-port"`
+	MgmtPort int `yaml:"mgmt-port"`
 	//basePath of the application
 	//defaults to nil
-	BasePath        string `yaml:"base-path"`
+	BasePath string `yaml:"base-path"`
 }
 
 //OAuthConfiguration used to connect to an authorization server
@@ -27,11 +27,11 @@ type OAuthConfiguration struct {
 	//Endpoint from the authorization server used for authorization redirect
 	AuthorizeEndpoint string `yaml:"authorize-endpoint"`
 	//The Client Id of the application
-	ClientId	string `yaml:"client-id"`
+	ClientId string `yaml:"client-id"`
 	//The client secret of the application
 	ClientSecret string `yaml:"client-secret"`
 	//Space delimited string of scopes to be requested from authorization server
-	Scope	string	`yaml:"scope"`
+	Scope string `yaml:"scope"`
 	//response type parameter for authorize request
 	ResponseType string `yaml:"response-type"`
 	//redirect uri for the authorize request
@@ -82,23 +82,23 @@ type SessionHandlingConf struct {
 	//If set to true the keyset used to encrypt cookies will be generated upon startup
 	//and the possibly provided paths will be ignored.
 	//defaults to true
-	AutogenerateKeyset bool   `yaml:"auto-generate-keyset"`
+	AutogenerateKeyset bool `yaml:"auto-generate-keyset"`
 	//Path to the hashkey
 	//defaults to nil
-	HashkeyPath        string `yaml:"hashkey"`
+	HashkeyPath string `yaml:"hashkey"`
 	//Path to the blockkey
 	//defaults to nil
-	BlockKeyPath       string `yaml:"blockkey"`
+	BlockKeyPath string `yaml:"blockkey"`
 	//base path for all generated cookies
 	//defaults to "/"
-	CookiePath         string `yaml:"cookie-path"`
+	CookiePath string `yaml:"cookie-path"`
 	//Max age of generated cookies
 	//defaults to 3600 seconds
-	CookieMaxAge       int `yaml:"cookie-max-age"`
+	CookieMaxAge int `yaml:"cookie-max-age"`
 	//Name of session
 	CookieName string `yaml:"cookie-name"`
 	//http only mode
-	HttpOnly	bool `yaml:"cookie-http-only"`
+	HttpOnly bool `yaml:"cookie-http-only"`
 }
 
 type CachingConf struct {
@@ -109,12 +109,12 @@ type CachingConf struct {
 }
 
 type Configuration struct {
-	Base BaseServiceConfiguration `yaml:"base,flow"`
-	Session SessionHandlingConf      `yaml:"session,flow"`
-	Cache CachingConf              `yaml:"cache,flow"`
-	Postgres PostgresConfig           `yaml:"postgres,flow"`
-	Mongo MongoConf                `yaml:"mongo,flow"`
-	Authentication OAuthConfiguration `yaml:"authentication,flow"`
+	Base           BaseServiceConfiguration `yaml:"base,flow"`
+	Session        SessionHandlingConf      `yaml:"session,flow"`
+	Cache          CachingConf              `yaml:"cache,flow"`
+	Postgres       PostgresConfig           `yaml:"postgres,flow"`
+	Mongo          MongoConf                `yaml:"mongo,flow"`
+	Authentication OAuthConfiguration       `yaml:"authentication,flow"`
 }
 
 type ConfigManager struct {
@@ -175,7 +175,7 @@ func NewManagedConfiguration(args ...string) *ConfigManager {
 		config.initCachingWithDefaults()
 
 		conf.Configuration = &config
-	} else  {
+	} else {
 		err := yaml.Unmarshal(file, &conf.Configuration)
 		if err != nil {
 			panic(err)
