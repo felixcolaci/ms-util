@@ -57,7 +57,7 @@ func TestInitMongoConfigWithDefaults(t *testing.T) {
 	}
 
 	if conf.Mongo.Database != "dev-db" {
-		t.Errorf("default database mismatch. Expected %V got %V", "dev-db", conf.Mongo.Database)
+		t.Errorf("default database mismatch. Expected %v got %v", "dev-db", conf.Mongo.Database)
 	}
 
 	if conf.Mongo.Host != "localhost" {
