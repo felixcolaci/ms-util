@@ -38,6 +38,13 @@ type OAuthConfiguration struct {
 	RedirectUri string `yaml:"redirect-uri"`
 }
 
+type RedisConfiguration struct {
+	Host string `yaml:"host"`
+	Port int `yaml:"port"`
+	Database int `yaml:"database"`
+	Password string `yaml:"password"`
+}
+
 /*
 Configuration to connect to postgres
 */
@@ -115,10 +122,17 @@ type Configuration struct {
 	Postgres       PostgresConfig           `yaml:"postgres,flow"`
 	Mongo          MongoConf                `yaml:"mongo,flow"`
 	Authentication OAuthConfiguration       `yaml:"authentication,flow"`
+	Redis	RedisConfiguration `yaml:"redis,flow"`
 }
 
 type ConfigManager struct {
 	Configuration *Configuration
+}
+
+func (c *Configuration) initRedisWithDefaults() {
+	c.Redis.Host = "localhost"
+	c.Redis.Port = 6379
+	c.Redis.Database = 0
 }
 
 func (c *Configuration) initSessionWithDefaults() {
@@ -173,7 +187,7 @@ func NewManagedConfiguration(args ...string) *ConfigManager {
 		config.initMongoWithDefaults()
 		config.initSessionWithDefaults()
 		config.initCachingWithDefaults()
-
+		config.initRedisWithDefaults()
 		conf.Configuration = &config
 	} else {
 		err := yaml.Unmarshal(file, &conf.Configuration)
