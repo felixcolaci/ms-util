@@ -39,9 +39,9 @@ type OAuthConfiguration struct {
 }
 
 type RedisConfiguration struct {
-	Host string `yaml:"host"`
-	Port int `yaml:"port"`
-	Database int `yaml:"database"`
+	Host     string `yaml:"host"`
+	Port     int    `yaml:"port"`
+	Database int    `yaml:"database"`
 	Password string `yaml:"password"`
 }
 
@@ -115,6 +115,12 @@ type CachingConf struct {
 	EnableCaching bool `yaml:"caching-enabled"`
 }
 
+type ServiceConf struct {
+	Host     string `yaml:"host"`
+	Port     int    `yaml:"port"`
+	BasePath string `yaml:"base-path"`
+}
+
 type Configuration struct {
 	Base           BaseServiceConfiguration `yaml:"base,flow"`
 	Session        SessionHandlingConf      `yaml:"session,flow"`
@@ -122,7 +128,8 @@ type Configuration struct {
 	Postgres       PostgresConfig           `yaml:"postgres,flow"`
 	Mongo          MongoConf                `yaml:"mongo,flow"`
 	Authentication OAuthConfiguration       `yaml:"authentication,flow"`
-	Redis	RedisConfiguration `yaml:"redis,flow"`
+	Redis          RedisConfiguration       `yaml:"redis,flow"`
+	Services       map[string]ServiceConf   `yaml:"services,flow"`
 }
 
 type ConfigManager struct {
