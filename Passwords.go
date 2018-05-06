@@ -10,7 +10,7 @@ import (
 
 func HashPassword(password string) (string, string, error) {
 
-	salt, err := generateRandomStringURLSafe(250)
+	salt, err := GenerateRandomStringURLSafe(250)
 	if err != nil {
 		return "", "", err
 	}
@@ -74,7 +74,7 @@ func generateRandomString(n int) (string, error) {
 // It will return an error if the system's secure random
 // number generator fails to function correctly, in which
 // case the caller should not continue.
-func generateRandomStringURLSafe(n int) (string, error) {
+func GenerateRandomStringURLSafe(n int) (string, error) {
 	b, err := generateRandomBytes(n)
 	return base64.URLEncoding.EncodeToString(b), err
 }
