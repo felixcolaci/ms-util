@@ -119,6 +119,7 @@ type ServiceConf struct {
 	Host     string `yaml:"host"`
 	Port     int    `yaml:"port"`
 	BasePath string `yaml:"base-path"`
+	Protocol string `yaml:"protocol"`
 }
 
 type Configuration struct {

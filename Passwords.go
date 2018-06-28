@@ -20,7 +20,8 @@ func HashPassword(password string) (string, string, error) {
 }
 
 func CheckPasswordHash(salt, password, hash string) bool {
-	return bcrypt.CompareHashAndPassword([]byte(hash), []byte(salt+password)) == nil
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(salt + password))
+	return err == nil
 }
 
 func init() {
