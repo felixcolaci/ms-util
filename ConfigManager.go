@@ -127,7 +127,7 @@ type ServiceConf struct {
  */
 type WorfConf struct {
 	// Defaults to 24h
-	KeyRenewalInHours int `yaml:"key-renewal-in-hours"`
+	KeyRenewalInHours float32 `yaml:"key-renewal-in-hours"`
 }
 
 type Configuration struct {
