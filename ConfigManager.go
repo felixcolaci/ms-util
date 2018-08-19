@@ -127,7 +127,7 @@ type ServiceConf struct {
  */
 type WorfConf struct {
 	// Defaults to 24h
-	KeyRenewalInHours float32 `yaml:"key-renewal-in-hours"`
+	KeyRenewalInMinutes int `yaml:"key-renewal-in-minutes"`
 }
 
 type Configuration struct {
@@ -147,7 +147,7 @@ type ConfigManager struct {
 }
 
 func (c *Configuration) initWorfWithDefaults() {
-	c.Worf.KeyRenewalInHours = 24
+	c.Worf.KeyRenewalInMinutes = 1440
 }
 
 func (c *Configuration) initRedisWithDefaults() {
