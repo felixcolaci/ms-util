@@ -96,5 +96,14 @@ func TestNewManagedConfiguration(t *testing.T) {
 			t.Errorf("Path to hashkey should be empty by default")
 		}
 	})
+
+	t.Run("init worf with defaults", func(t *testing.T) {
+		var conf Configuration
+		conf.initWorfWithDefaults()
+
+		if conf.Worf.KeyRenewalInHours != 24 {
+			t.Errorf("default key renewal time mismatch. exptected %v got %v", 24, conf.Worf.KeyRenewalInHours)
+		}
+	})
 }
 

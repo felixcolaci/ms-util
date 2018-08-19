@@ -1,8 +1,8 @@
 package ms_util
 
 import (
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
+	"gopkg.in/yaml.v2"
 )
 
 //Basic Service Configuration
@@ -122,6 +122,14 @@ type ServiceConf struct {
 	Protocol string `yaml:"protocol"`
 }
 
+/**
+	Configuration for Worf
+ */
+type WorfConf struct {
+	// Defaults to 24h
+	KeyRenewalInHours int `yaml:"key-renewal-in-hours"`
+}
+
 type Configuration struct {
 	Base           BaseServiceConfiguration `yaml:"base,flow"`
 	Session        SessionHandlingConf      `yaml:"session,flow"`
@@ -131,10 +139,15 @@ type Configuration struct {
 	Authentication OAuthConfiguration       `yaml:"authentication,flow"`
 	Redis          RedisConfiguration       `yaml:"redis,flow"`
 	Services       map[string]ServiceConf   `yaml:"services,flow"`
+	Worf			WorfConf				`yaml:"worf,flow"`
 }
 
 type ConfigManager struct {
 	Configuration *Configuration
+}
+
+func (c *Configuration) initWorfWithDefaults() {
+	c.Worf.KeyRenewalInHours = 24
 }
 
 func (c *Configuration) initRedisWithDefaults() {
@@ -196,6 +209,7 @@ func NewManagedConfiguration(args ...string) *ConfigManager {
 		config.initSessionWithDefaults()
 		config.initCachingWithDefaults()
 		config.initRedisWithDefaults()
+		config.initWorfWithDefaults()
 		conf.Configuration = &config
 	} else {
 		err := yaml.Unmarshal(file, &conf.Configuration)
