@@ -126,8 +126,14 @@ type ServiceConf struct {
 	Configuration for Worf
  */
 type WorfConf struct {
-	// Defaults to 24h
-	KeyRenewalInMinutes int `yaml:"key-renewal-in-minutes"`
+	AccessTokenLifeTimeInMinutes int `yaml:"access-token-lifetime"`
+	RefreshTokenLifeTimeInMinutes int `yaml:"refresh-token-lifetime"`
+}
+
+type MaintainerConf struct {
+	TokenCleanupIntervalInMinutes int `yaml:"token-cleanup-interval"`
+	KeyCheckIntervalInMinutes int `yaml:"key-check-interval"`
+	RSAKeyLifetimeInMinutes int `yaml:"rsa-key-lifetime"`
 }
 
 type Configuration struct {
@@ -140,6 +146,7 @@ type Configuration struct {
 	Redis          RedisConfiguration       `yaml:"redis,flow"`
 	Services       map[string]ServiceConf   `yaml:"services,flow"`
 	Worf			WorfConf				`yaml:"worf,flow"`
+	Maintainer		MaintainerConf			`yaml:"maintainer,flow"`
 }
 
 type ConfigManager struct {
@@ -147,7 +154,8 @@ type ConfigManager struct {
 }
 
 func (c *Configuration) initWorfWithDefaults() {
-	c.Worf.KeyRenewalInMinutes = 1440
+	c.Worf.AccessTokenLifeTimeInMinutes = 5
+	c.Worf.RefreshTokenLifeTimeInMinutes = 60
 }
 
 func (c *Configuration) initRedisWithDefaults() {
