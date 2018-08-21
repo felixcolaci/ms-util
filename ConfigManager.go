@@ -45,6 +45,12 @@ type RedisConfiguration struct {
 	Password string `yaml:"password"`
 }
 
+type AuthorizationServerConfiguration struct {
+	Issuer string `yaml:"issuer"`
+	AccessTokenLifeTimeInSeconds int `yaml:"access-token-lifetime"`
+	RefreshTokenLifeTimeInSeconds int `yaml:"refresh-token-lifetime"`
+}
+
 /*
 Configuration to connect to postgres
 */
@@ -126,8 +132,6 @@ type ServiceConf struct {
 	Configuration for Worf
  */
 type WorfConf struct {
-	AccessTokenLifeTimeInMinutes int `yaml:"access-token-lifetime"`
-	RefreshTokenLifeTimeInMinutes int `yaml:"refresh-token-lifetime"`
 }
 
 type MaintainerConf struct {
@@ -147,6 +151,7 @@ type Configuration struct {
 	Services       map[string]ServiceConf   `yaml:"services,flow"`
 	Worf			WorfConf				`yaml:"worf,flow"`
 	Maintainer		MaintainerConf			`yaml:"maintainer,flow"`
+	AuthorizationServer AuthorizationServerConfiguration `yaml:"authorization-server,flow"`
 }
 
 type ConfigManager struct {
@@ -154,8 +159,12 @@ type ConfigManager struct {
 }
 
 func (c *Configuration) initWorfWithDefaults() {
-	c.Worf.AccessTokenLifeTimeInMinutes = 5
-	c.Worf.RefreshTokenLifeTimeInMinutes = 60
+}
+
+func (c *Configuration) initAuthServerWithDefaults() {
+	c.AuthorizationServer.AccessTokenLifeTimeInSeconds = 600
+	c.AuthorizationServer.RefreshTokenLifeTimeInSeconds = 3600
+	c.AuthorizationServer.Issuer = "http://localhost:8080"
 }
 
 func (c *Configuration) initRedisWithDefaults() {
@@ -218,6 +227,7 @@ func NewManagedConfiguration(args ...string) *ConfigManager {
 		config.initCachingWithDefaults()
 		config.initRedisWithDefaults()
 		config.initWorfWithDefaults()
+		config.initAuthServerWithDefaults()
 		conf.Configuration = &config
 	} else {
 		err := yaml.Unmarshal(file, &conf.Configuration)
