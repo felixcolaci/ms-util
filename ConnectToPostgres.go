@@ -22,26 +22,39 @@ func ConnectToPostgres(cfg *PostgresConfig) *sqlx.DB {
 	if dbSsl {
 		sslMode = "enable"
 	}
-	dbString := fmt.Sprintf("postgres://%v:%v@%v:%v/%v?sslmode=%v",
-		dbUser,
-		dbPass,
-		dbHost,
-		dbPort,
-		dbName,
-		sslMode)
+	var dbString string
+	if len(dbPass) > 0 {
+		dbString = fmt.Sprintf("postgres://%v:%v@%v:%v/%v?sslmode=%v",
+			dbUser,
+			dbPass,
+			dbHost,
+			dbPort,
+			dbName,
+			sslMode)
+	} else {
+		dbString = fmt.Sprintf("postgres://%v@%v:%v/%v?sslmode=%v",
+			dbUser,
+			dbHost,
+			dbPort,
+			dbName,
+			sslMode)
+	}
 
 	logger.Boot(fmt.Sprintf("postgres connection attempt to: %v", dbString))
 
 	//connect to db
 	db := sqlx.MustConnect("postgres", dbString)
-	db.Ping()
+	err := db.Ping()
+	if err != nil {
+		logger.Err("error connecting to database: " + err.Error())
+	}
 	//Configure db
 	db.SetMaxIdleConns(cfg.MaxIdleCon)
 	db.SetMaxOpenConns(cfg.MaxCon)
 	db.SetConnMaxLifetime(time.Minute * time.Duration(cfg.MaxConLifetime))
 
 	migrations := &migrate.FileMigrationSource{
-		Dir: "./../data/resources/db/migrations",
+		Dir: "./../shared/data/resources/db/migrations",
 	}
 
 	if initSchema {

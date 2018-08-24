@@ -1,8 +1,8 @@
 package ms_util
 
 import (
-	"io/ioutil"
 	"gopkg.in/yaml.v2"
+	"io/ioutil"
 )
 
 //Basic Service Configuration
@@ -46,9 +46,10 @@ type RedisConfiguration struct {
 }
 
 type AuthorizationServerConfiguration struct {
-	Issuer string `yaml:"issuer"`
-	AccessTokenLifeTimeInSeconds int `yaml:"access-token-lifetime"`
-	RefreshTokenLifeTimeInSeconds int `yaml:"refresh-token-lifetime"`
+	Issuer                        string `yaml:"issuer"`
+	AccessTokenLifeTimeInSeconds  int    `yaml:"access-token-lifetime"`
+	IDTokenLifeTimeInSeconds      int    `yaml:"id-token-lifetime"`
+	RefreshTokenLifeTimeInSeconds int    `yaml:"refresh-token-lifetime"`
 }
 
 /*
@@ -129,28 +130,28 @@ type ServiceConf struct {
 }
 
 /**
-	Configuration for Worf
- */
+Configuration for Worf
+*/
 type WorfConf struct {
 }
 
 type MaintainerConf struct {
 	TokenCleanupIntervalInMinutes int `yaml:"token-cleanup-interval"`
-	KeyCheckIntervalInMinutes int `yaml:"key-check-interval"`
-	RSAKeyLifetimeInMinutes int `yaml:"rsa-key-lifetime"`
+	KeyCheckIntervalInMinutes     int `yaml:"key-check-interval"`
+	RSAKeyLifetimeInMinutes       int `yaml:"rsa-key-lifetime"`
 }
 
 type Configuration struct {
-	Base           BaseServiceConfiguration `yaml:"base,flow"`
-	Session        SessionHandlingConf      `yaml:"session,flow"`
-	Cache          CachingConf              `yaml:"cache,flow"`
-	Postgres       PostgresConfig           `yaml:"postgres,flow"`
-	Mongo          MongoConf                `yaml:"mongo,flow"`
-	Authentication OAuthConfiguration       `yaml:"authentication,flow"`
-	Redis          RedisConfiguration       `yaml:"redis,flow"`
-	Services       map[string]ServiceConf   `yaml:"services,flow"`
-	Worf			WorfConf				`yaml:"worf,flow"`
-	Maintainer		MaintainerConf			`yaml:"maintainer,flow"`
+	Base                BaseServiceConfiguration         `yaml:"base,flow"`
+	Session             SessionHandlingConf              `yaml:"session,flow"`
+	Cache               CachingConf                      `yaml:"cache,flow"`
+	Postgres            PostgresConfig                   `yaml:"postgres,flow"`
+	Mongo               MongoConf                        `yaml:"mongo,flow"`
+	Authentication      OAuthConfiguration               `yaml:"authentication,flow"`
+	Redis               RedisConfiguration               `yaml:"redis,flow"`
+	Services            map[string]ServiceConf           `yaml:"services,flow"`
+	Worf                WorfConf                         `yaml:"worf,flow"`
+	Maintainer          MaintainerConf                   `yaml:"maintainer,flow"`
 	AuthorizationServer AuthorizationServerConfiguration `yaml:"authorization-server,flow"`
 }
 
@@ -164,6 +165,7 @@ func (c *Configuration) initWorfWithDefaults() {
 func (c *Configuration) initAuthServerWithDefaults() {
 	c.AuthorizationServer.AccessTokenLifeTimeInSeconds = 600
 	c.AuthorizationServer.RefreshTokenLifeTimeInSeconds = 3600
+	c.AuthorizationServer.IDTokenLifeTimeInSeconds = 300
 	c.AuthorizationServer.Issuer = "http://localhost:8080"
 }
 
