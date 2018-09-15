@@ -50,6 +50,8 @@ type AuthorizationServerConfiguration struct {
 	AccessTokenLifeTimeInSeconds  int    `yaml:"access-token-lifetime"`
 	IDTokenLifeTimeInSeconds      int    `yaml:"id-token-lifetime"`
 	RefreshTokenLifeTimeInSeconds int    `yaml:"refresh-token-lifetime"`
+	//must be one of `postgres`, `redis`, `in-memory`
+	TokenStorage string `yaml:"token-storage"`
 }
 
 /*
@@ -167,6 +169,7 @@ func (c *Configuration) initAuthServerWithDefaults() {
 	c.AuthorizationServer.RefreshTokenLifeTimeInSeconds = 3600
 	c.AuthorizationServer.IDTokenLifeTimeInSeconds = 300
 	c.AuthorizationServer.Issuer = "http://localhost:8080"
+	c.AuthorizationServer.TokenStorage = "postgres"
 }
 
 func (c *Configuration) initRedisWithDefaults() {
