@@ -1,5 +1,7 @@
 package ms_util
 
+//TODO Convert from old lib
+/*
 import (
 	"encoding/json"
 	"github.com/dgrijalva/jwt-go"
@@ -136,4 +138,4 @@ func inSlice(slice []string, probe string) bool {
 		}
 	}
 	return false
-}
+}*/

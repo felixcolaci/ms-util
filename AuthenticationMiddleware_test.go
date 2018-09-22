@@ -1,5 +1,7 @@
 package ms_util_test
 
+//TODO convert from old lib
+/*
 import (
 	"encoding/json"
 	"github.com/dgrijalva/jwt-go"
@@ -99,3 +101,4 @@ func generateJwt(claims jwt.MapClaims) (string, error) {
 	}
 	return tokenString, nil
 }
+*/
