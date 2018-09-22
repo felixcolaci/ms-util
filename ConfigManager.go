@@ -18,6 +18,8 @@ type BaseServiceConfiguration struct {
 	//basePath of the application
 	//defaults to nil
 	BasePath string `yaml:"base-path"`
+	//Use SSL
+	SSLEnabled bool `yaml:"ssl-enabled"`
 }
 
 //OAuthConfiguration used to connect to an authorization server
@@ -78,6 +80,8 @@ type PostgresConfig struct {
 	MaxIdleCon int `yaml:"max-idle-connections"`
 	//Connection lifetime in minutes
 	MaxConLifetime int `yaml:"max-con-lifetime"`
+	//Acquire timeout in milliseconds
+	ConnAcquireTimeout int `yaml:"con-acquire-timeout"`
 }
 
 //Configuration for establishment of a mongo db connection
