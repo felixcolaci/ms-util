@@ -1,8 +1,8 @@
 package ms_util_test
 
 import (
-	"testing"
 	"github.com/felixcolaci/ms-util"
+	"testing"
 )
 
 func TestHashPassword(t *testing.T) {
@@ -16,11 +16,11 @@ func TestHashPassword(t *testing.T) {
 
 func TestCheckPasswordHash(t *testing.T) {
 
-	var testcases = []struct{
-		name string
-		pwToHash string
+	var testcases = []struct {
+		name        string
+		pwToHash    string
 		pwToCompare string
-		result bool
+		result      bool
 	}{
 		{"valid password", "password", "password", true},
 		{"valid short password", "asd", "asd", true},
@@ -40,7 +40,13 @@ func TestCheckPasswordHash(t *testing.T) {
 			}
 		})
 	}
-
-
 }
 
+func BenchmarkCheckPasswordHash(b *testing.B) {
+	password := "password"
+	salt, hash, _ := ms_util.HashPassword(password)
+
+	for n := 0; n < b.N; n++ {
+		ms_util.CheckPasswordHash(salt, password, hash)
+	}
+}
