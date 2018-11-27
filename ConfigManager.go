@@ -72,6 +72,7 @@ type PostgresConfig struct {
 	Host string `yaml:"host"`
 	//If set to true the database will be truncated and schema dropped. Defaults to false
 	ReinitSchema bool `yaml:"reinit-schema"`
+	PathToMigrationFiles string `yaml:"path-to-migration-files"`
 	//If set to true ssl will be used for the connection
 	UseSsl bool `yaml:"use-ssl"`
 	//Max size of the connection pool
